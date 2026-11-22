@@ -1,0 +1,48 @@
+PRAFULLA KUMAR GOUDA - PORTFOLIO (React + Vite + TypeScript)
+=============================================================
+
+RUN IT IN VS CODE (about 3 minutes the first time)
+
+1. Install Node.js (version 20.19 or newer, or 22+) from https://nodejs.org  (choose "LTS").
+   Check it worked: open a terminal and type   node -v
+
+2. Unzip this folder, then in VS Code:  File > Open Folder... > choose this folder.
+
+3. Open the terminal inside VS Code:  Terminal > New Terminal  (or press Ctrl + `)
+
+4. Install the packages (only needed once):
+
+       npm install
+
+5. Start the portfolio:
+
+       npm start
+
+   Your browser opens at http://localhost:5173 and you see the portfolio.
+   It is one page you can scroll through, or use the menu on the left to jump to Home, About, Skills, Projects,
+   Experience, Leadership, Education or Contact.
+   (If it does not open by itself, open that address manually.)
+   Press Ctrl + C in the terminal to stop it.
+
+EDIT IT
+- Everything updates in the browser as soon as you save a file.
+- Content lives in  src/data/  (profile.ts, projects.ts, skills.ts).
+- Your photo is  src/assets/profile.jpg  (replace the file to change it).
+
+BEFORE YOU PUBLISH (optional now)
+- Open the file named  .env  (it is in this folder, next to package.json) and type your Gmail after
+  VITE_CONTACT_EMAIL=   (no spaces, no quotes). Save, then restart with  npm start.  Phone is optional.
+  Until you do, the email icon and the feedback form are hidden on purpose - no placeholder text shows.
+- Put your resume PDF in the public/ folder named Prafulla_Kumar_Gouda_Resume.pdf
+- Full details, free hosting steps and updating guide: README.md
+
+BUILD THE FINAL SITE
+       npm run build        (creates the "dist" folder you can upload to any free host)
+
+PROBLEMS?
+- "npm is not recognised": close and reopen VS Code after installing Node.js.
+- Port busy: run  npm start -- --port 5180
+
+PUBLISHING ON GITHUB? (your email needs one extra step)
+- The .env file stays on your computer and is NOT uploaded. On GitHub: your repository > Settings > Secrets and variables >
+  Actions > Variables tab > New repository variable. Name: VITE_CONTACT_EMAIL   Value: your Gmail. Then Actions tab > Run workflow.

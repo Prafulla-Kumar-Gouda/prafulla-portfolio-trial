@@ -1,0 +1,207 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+
+/* Design tokens: Black + Muted Amber Gold.
+   Roughly 65% black and charcoal, 25% graphite and dark grey, 10% gold. Gold is for buttons, the active navigation
+   indicator, icons, underlines and a few key figures only. Light theme (optional toggle) mirrors the same roles. */
+:root,
+:root[data-theme='dark'] {
+  --bg: #111111;            /* main background: deep black */
+  --sidebar: #191919;       /* sidebar: dark charcoal */
+  --surface: #242424;       /* cards: graphite */
+  --surface-2: #2c2c2c;     /* nested tiles and tab bars inside cards */
+  --line: #383838;          /* borders: dark grey */
+  --text: #f5f5f5;          /* main text: off white */
+  --muted: #a3a3a3;         /* secondary text: silver grey */
+  --accent: #c9a24d;        /* primary accent: muted amber gold */
+  --accent-ink: #111111;    /* text on gold */
+  --secondary: #e5c477;     /* secondary accent: soft gold (key figures, hover) */
+  --hover: #30291d;         /* hover background */
+  --amber: #d9a85b;         /* form warnings only */
+  --dim: #8a8a8a;           /* not-yet-read words in the scroll text effect (still passes contrast) */
+  color-scheme: dark;
+}
+:root[data-theme='light'] {
+  --bg: #f7f5f0;
+  --sidebar: #efece4;
+  --surface: #ffffff;
+  --surface-2: #f1eee6;
+  --line: #ddd6c7;
+  --text: #1a1a1a;
+  --muted: #5a5a5a;
+  --accent: #7a5c14;
+  --accent-ink: #ffffff;
+  --secondary: #6b520f;
+  --hover: #f3ecd9;
+  --amber: #8a5a06;
+  --dim: #6e6e6e;
+  color-scheme: light;
+}
+:root {
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --page-width: 72rem;
+  --section-space: clamp(2.5rem, 5vw, 4rem);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@theme inline {
+  --font-display: 'Bricolage Grotesque Variable', 'Segoe UI', sans-serif;
+  --font-sans: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-sidebar: var(--sidebar);
+  --color-surface2: var(--surface-2);
+  --color-hover: var(--hover);
+  --color-line: var(--line);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accentink: var(--accent-ink);
+  --color-secondary: var(--secondary);
+  --color-amber: var(--amber);
+}
+
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: calc(4.5rem + env(safe-area-inset-top, 0px)); -webkit-text-size-adjust: 100%; scrollbar-color: var(--line) var(--bg); scrollbar-width: thin; }
+  @media (min-width: 1024px) { html { scroll-padding-top: 0; } }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.25s, color 0.25s;
+  }
+  h1, h2, h3, h4, h5 { font-family: var(--font-display); line-height: 1.15; letter-spacing: -0.01em; font-weight: 600; text-wrap: balance; }
+  ::selection { background: color-mix(in srgb, var(--accent) 35%, transparent); color: var(--text); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  main:focus { outline: none; }
+  main > section { border-top: 1px solid var(--line); }
+}
+
+@layer components {
+  .wrap { width: min(100% - 2.5rem, var(--page-width)); margin-inline: auto; }
+  .section { padding-block: var(--section-space); }
+  .safe-top { padding-top: env(safe-area-inset-top, 0px); }
+
+  /* Small solid bar under each page title */
+  .title-bar::after { content: ''; display: block; width: 2.5rem; height: 3px; margin-top: 0.8rem; border-radius: 3px; background: var(--accent); }
+
+  /* Cards: a quiet border, never a glow */
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); }
+  .panel-hover { transition: border-color 0.2s ease, transform 0.2s ease; }
+  @media (hover: hover) { .panel-hover:hover { border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); transform: translateY(-2px); } }
+  .portrait-hover { transition: transform 0.25s ease; }
+  @media (hover: hover) { .portrait-hover:hover { transform: scale(1.02); } }
+
+  /* Buttons: filled accent = primary, outline = secondary, accent outline = resume */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: 2.75rem; padding: 0.55rem 1.1rem; border-radius: var(--radius-sm);
+    font-weight: 600; font-size: 0.975rem; line-height: 1.2; text-decoration: none; cursor: pointer;
+    border: 1px solid var(--line); background: transparent; color: var(--text);
+    transition: background-color 0.18s, border-color 0.18s;
+  }
+  .btn:hover { border-color: var(--accent); background: var(--hover); }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .btn-primary:hover { background: var(--secondary); border-color: var(--secondary); }
+  .btn-outline-accent { border-color: var(--accent); color: var(--accent); }
+  .btn-outline-accent:hover { background: var(--hover); }
+  .btn[aria-disabled='true'], .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+  .btn[aria-disabled='true']:hover, .btn:disabled:hover { border-color: var(--line); background: transparent; }
+  .btn-outline-accent[aria-disabled='true']:hover { border-color: var(--accent); }
+
+  .tag {
+    display: inline-block; padding: 0.2rem 0.65rem; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--surface);
+    font-size: 0.875rem; line-height: 1.5; color: var(--text);
+  }
+
+  /* Horizontally scrollable chip row (skill tabs, filters) */
+  .chip-row { display: flex; gap: 0.5rem; overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .chip-row::-webkit-scrollbar { display: none; }
+  .chip-row > * { flex-shrink: 0; scroll-snap-align: start; }
+}
+
+/* Short laptop screens: tighten the sidebar so every menu item and the footer links fit without scrolling it. */
+@media (min-width: 1024px) and (max-height: 829px) {
+  .sb-profile { padding-top: 1rem; padding-bottom: 0.5rem; }
+  .sb-avatar-img { width: 3rem; height: 3rem; }
+  .sb-location, .sb-updated { display: none; }
+  .sb-link { min-height: 2.5rem; }
+  .sb-foot { padding: 0.75rem 1rem; }
+}
+@media (min-width: 1024px) and (max-height: 679px) {
+  .sb-badge { display: none; }
+  .sb-link { min-height: 2.25rem; }
+  .sb-profile { padding-top: 0.75rem; }
+}
+
+@layer components {
+  /* ===== Scroll reveal: fade + upward movement, staggered. Start states exist only under html.motion-ready. ===== */
+  [data-reveal]:not([data-d]) { --i: 0; } /* a nested element does not inherit its parent's stagger */
+  [data-d='1'] { --i: 1; } [data-d='2'] { --i: 2; } [data-d='3'] { --i: 3; }
+  [data-d='4'] { --i: 4; } [data-d='5'] { --i: 5; } [data-d='6'] { --i: 6; }
+
+  .motion-ready [data-reveal] { transition-property: opacity, translate; transition-duration: 0.7s; transition-timing-function: var(--ease); transition-delay: 0s; }
+  .motion-ready [data-reveal]:not(.in) { opacity: 0; translate: 0 22px; }
+  .motion-ready [data-reveal].in { transition-delay: calc(var(--i, 0) * 70ms); }
+
+  /* Elements that already have a hover transition keep it alongside the reveal */
+  .motion-ready .panel-hover[data-reveal] { transition-property: opacity, translate, border-color, transform; transition-duration: 0.7s, 0.7s, 0.2s, 0.2s; }
+  .motion-ready .panel-hover[data-reveal].in { transition-delay: calc(var(--i, 0) * 70ms), calc(var(--i, 0) * 70ms), 0s, 0s; }
+  .motion-ready .portrait-hover[data-reveal] { transition-property: opacity, translate, transform; transition-duration: 0.7s, 0.7s, 0.25s; }
+  .motion-ready .portrait-hover[data-reveal].in { transition-delay: 0.1s, 0.1s, 0s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-delay: 0ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* ===== Trial: hero choreography, rotating words, scrubbed text, accordion, cursor ===== */
+@layer components {
+  /* Hero: glow behind the portrait, and the scroll choreography (--hp goes 0 to 1 as you scroll away) */
+  .hero-glow { position: absolute; inset: -26%; border-radius: 9999px; pointer-events: none; background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 20%, transparent), transparent 72%); }
+  @media (min-width: 1280px) {
+    .motion-ready .hero-left { transform: translateX(calc(var(--hp, 0) * -70px)); opacity: calc(1 - var(--hp, 0)); }
+    .motion-ready .hero-right { transform: translateX(calc(var(--hp, 0) * 70px)); opacity: calc(1 - var(--hp, 0)); }
+    .motion-ready .hero-center { transform: translateY(calc(var(--hp, 0) * 36px)) scale(calc(1 - var(--hp, 0) * 0.1)); }
+  }
+
+  /* Rotating focus words: stacked in one grid cell, masked, sliding up */
+  .rot { display: grid; overflow: hidden; padding-block: 0.1em; margin-block: -0.1em; }
+  .rot-w { grid-area: 1 / 1; translate: 0 105%; opacity: 0; transition: translate 0.7s var(--ease), opacity 0.5s var(--ease); }
+  .rot-w.is-on { translate: 0 0; opacity: 1; }
+  .rot-w.is-off { translate: 0 -105%; opacity: 0.3; color: var(--accent); }
+
+  /* Words that brighten as you scroll (--p is set by script; without it everything is fully visible) */
+  [data-scrub] { --p: 1; }
+  /* A grey-to-full-colour sweep, not a fade: even a word that has not been reached yet stays readable (contrast-safe). */
+  .sw { color: color-mix(in srgb, currentColor calc(clamp(0, calc((var(--p) * 1.25 - var(--k)) * 8), 1) * 100%), var(--dim)); }
+
+  /* Accordion cards with corner brackets */
+  .brackets {
+    border: 1px dashed var(--line); border-radius: 2px; background:
+      linear-gradient(var(--accent), var(--accent)) top left / 16px 2px no-repeat, linear-gradient(var(--accent), var(--accent)) top left / 2px 16px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) top right / 16px 2px no-repeat, linear-gradient(var(--accent), var(--accent)) top right / 2px 16px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) bottom left / 16px 2px no-repeat, linear-gradient(var(--accent), var(--accent)) bottom left / 2px 16px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) bottom right / 16px 2px no-repeat, linear-gradient(var(--accent), var(--accent)) bottom right / 2px 16px no-repeat;
+  }
+  .acc-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--ease); }
+  .acc-panel[data-open='true'] { grid-template-rows: 1fr; }
+  .acc-panel > div { overflow: hidden; visibility: hidden; transition: visibility 0s 0.45s; }
+  .acc-panel[data-open='true'] > div { visibility: visible; transition-delay: 0s; }
+
+  /* Cursor ring (mouse only) */
+  .cursor-ring { position: fixed; left: 0; top: 0; z-index: 70; width: 28px; height: 28px; border-radius: 9999px; pointer-events: none; opacity: 0; border: 1.5px solid var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); transition: opacity 0.25s, width 0.25s, height 0.25s, margin 0.25s; }
+  .cursor-ring.on { opacity: 1; }
+  .cursor-ring.big { width: 44px; height: 44px; margin: -8px 0 0 -8px; }
+}

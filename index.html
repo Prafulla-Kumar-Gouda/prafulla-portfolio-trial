@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Prafulla Kumar Gouda | Data Science &amp; Business Intelligence Portfolio</title>
+    <meta name="description" content="Explore Prafulla Kumar Gouda's portfolio featuring Data Science, Data Analytics, Business Intelligence, Python projects, customer segmentation, forecasting, and technical development." />
+    <meta name="author" content="Prafulla Kumar Gouda" />
+    <meta name="theme-color" content="#111111" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Prafulla Kumar Gouda | Data Science &amp; Business Intelligence Portfolio" />
+    <meta property="og:description" content="Data Science graduate with practical analytics projects, a deployed Business Intelligence application, digital marketing exposure and leadership experience." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Prafulla Kumar Gouda | Data Science &amp; Business Intelligence Portfolio" />
+
+    <!-- Scroll motion is switched on only when the browser supports it and the visitor has not asked for reduced motion.
+         If no element has been revealed within 4 seconds, everything is shown. Without this class nothing is hidden. -->
+    <script>
+      (function () {
+        try {
+          var d = document.documentElement;
+          if ('IntersectionObserver' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+            d.classList.add('motion-ready');
+            setTimeout(function () { if (!window.__motionReady || !document.querySelector('[data-reveal].in')) d.classList.remove('motion-ready'); }, 4000);
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Apply the saved theme before first paint to avoid a flash. -->
+    <script>
+      try {
+        var t = localStorage.getItem('pkg-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
